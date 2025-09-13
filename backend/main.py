@@ -4,6 +4,7 @@ from sqlmodel import Session, select
 from .database import engine, create_db_and_tables
 from .models import Item
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
         
 app = FastAPI()
 
@@ -15,9 +16,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class EchoRequest(BaseModel):
+    text: str
+    
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
+@app.get("/")
+def read_root():
+    return message
+
+@app.post("/")
+def echo_text(request: EchoRequest):
+    global message
+    
+    message = {"message": request.text}
+    return message
 
 
 @app.get("/items/")
