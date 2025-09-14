@@ -17,11 +17,11 @@ class TiktokDataScraper:
         self.client = ApifyClient(apikey)
         self.df = None
 
-    def get_data(self, search_queries):
+    def get_data(self, search_queries, results_per_page=30):
         print("Fetching results from dataset...")
         run_input = {
             "searchQueries": search_queries,
-            "resultsPerPage": 15,
+            "resultsPerPage": results_per_page,
             "profileScrapeSections": ["videos"],
             "profileSorting": "latest",
             "excludePinnedPosts": False,
