@@ -40,7 +40,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchMessage();
-  }, [message]);
+  }, []);
 
   return (
     <>
